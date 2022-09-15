@@ -1,6 +1,6 @@
 const histories = document.getElementById("histories");
 
-function addHistory(questionText, timeTaken, errorCount) {
+function addHistory(questionText, timeTaken, errorCount , typingSpeed) {
   const newRow = document.createElement("div");
   newRow.classList.add("card");
 
@@ -9,13 +9,14 @@ function addHistory(questionText, timeTaken, errorCount) {
   <div>
   <p>You took: <span class="bold">${timeTaken}</span> seconds</p>
   <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
+  <p>Typing Speed: <span class="bold red">${typingSpeed}</span> WPM</p>
   </div>
   `;
 
   histories.appendChild(newRow);
 
   let previousTests = JSON.parse(localStorage.getItem("testHistory")) || [];
-  previousTests.push({ questionText, timeTaken, errorCount });
+  previousTests.push({ questionText, timeTaken, errorCount , typingSpeed});
   localStorage.setItem("testHistory", JSON.stringify(previousTests));
 
   displayHistory();
@@ -33,6 +34,7 @@ function displayHistory() {
   <h3>${test.questionText}</h3>
   <p>You took: <span class="bold">${test.timeTaken}</span> seconds</p>
     <p>You made <span class="bold red">${test.errorCount}</span> mistakes</p>
+    <p>Typing Speed: <span class="bold red">${test.typingSpeed}</span> WPM</p>
   `;
 
     histories.appendChild(newRow);
