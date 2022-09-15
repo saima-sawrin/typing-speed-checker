@@ -70,7 +70,8 @@ const gameOver = () => {
   // so total time taken is current time - start time
   const finishTime = new Date().getTime();
   const timeTaken = (finishTime - startTime) / 1000;
-  const typingSpeed = (((userText.length/5)-errorCount)/timeTaken).toFixed(2);
+  const typingSpeed = Math.round((((userText.length)/5)/timeTaken)*60);
+  // console.log(userText.length);
  
   // show result modal
   resultModal.innerHTML = "";
@@ -85,7 +86,7 @@ const gameOver = () => {
     <h1>Finished!</h1>
     <p>You took: <span class="bold">${timeTaken}</span> seconds</p>
     <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
-    <p>Typing Speed: <span class="bold red">${typingSpeed}</span> WPM</p>
+    <p>Typing Speed: <span class="bold red">${typingSpeed}</span> CPM</p>
     <button onclick="closeModal()">Close</button>
   `;
  
@@ -140,4 +141,9 @@ setInterval(() => {
  
   document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} seconds`;
 }, 1000);
- 
+window.addEventListener("keydown", (event) => {
+  if ( event.keyCode === 32 && event.target== document.body) {
+    event.preventDefault();
+   }
+  // do something
+});
